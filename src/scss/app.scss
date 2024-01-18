@@ -9,6 +9,10 @@ body {
 
 .wrapper {
   width: calc(100vw - 100px);
+  @media (max-width: 544px) {
+    width: calc(100vw - 25px);
+    margin-top: 25px;
+  }
   height: 100%;
   background-color: #fff;
   margin: 50px auto;
@@ -18,6 +22,9 @@ body {
 
 .content {
   padding: 40px 0;
+  @media (max-width: 544px) {
+    padding: 20px 0;
+  }
 
   &__title {
     margin: 35px 0;
@@ -25,15 +32,34 @@ body {
 
   &__items {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 4fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     grid-template-rows: repeat(2, 1fr);
     grid-column-gap: 11px;
+    justify-items: center;
   }
 
   &__top {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @media (max-width: 1293px) {
+      flex-direction: column-reverse;
+      gap: 25px;
+
+      .categories {
+        max-width: 100%;
+
+        ul {
+          width: 100%;
+        }
+      }
+    }
+    @media (max-width: 983px) {
+      .categories {
+        overflow-x: scroll;
+      }
+    }
   }
 }
 
@@ -104,6 +130,10 @@ body {
         color: darken($color: #b6b6b6, $amount: 50);
       }
     }
+  }
+
+  .content__items {
+    display: block;
   }
 
   &__item {

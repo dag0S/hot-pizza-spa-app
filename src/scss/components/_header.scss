@@ -3,6 +3,9 @@
 .header {
   border-bottom: 1px solid $gray-line;
   padding: 40px 0;
+  @media (max-width: 544px)  {
+    padding: 20px 0;
+  }
 
   .container {
     display: flex;
@@ -12,9 +15,15 @@
 
   &__logo {
     display: flex;
+    @media (max-width: 544px)  {
+      align-items: center;
+    }
 
     img {
       margin-right: 15px;
+      @media (max-width: 544px)  {
+        margin-right: 5px;
+      }
     }
 
     h1 {
@@ -23,10 +32,17 @@
       letter-spacing: 1%;
       text-transform: uppercase;
       font-weight: 800;
+
+      @media (max-width: 544px)  {
+        font-size: 18px;
+      }
     }
 
     p {
       color: #7b7b7b;
+      @media (max-width: 544px) {
+        display: none;
+      }
     }
   }
 }

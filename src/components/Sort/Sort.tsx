@@ -1,14 +1,20 @@
 import { useState } from 'react';
 
-const Sort = () => {
+const Sort = ({ value, onClickSort }) => {
   const [isVisiblePopup, setIsVisiblePopup] = useState(false);
-  const [activeMenu, setActiveMenu] = useState(0);
 
-  const listMenu = ['популярности', 'цене', 'алфавиту'];
+  const listMenu = [
+    { name: 'популярности ↑', sort: 'rating' },
+    { name: 'популярности ↓', sort: '-rating' },
+    { name: 'цене ↑', sort: 'price' },
+    { name: 'цене ↓', sort: '-price' },
+    { name: 'алфавиту ↑', sort: 'title' },
+    { name: 'алфавиту ↓', sort: '-title' },
+  ];
 
   const handlerCloseAndSelect = (index) => {
     setIsVisiblePopup((prev) => !prev);
-    setActiveMenu(index);
+    onClickSort(index);
   };
 
   return (
@@ -26,17 +32,17 @@ const Sort = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setIsVisiblePopup((prev) => !prev)}>{listMenu[activeMenu]}</span>
+        <span onClick={() => setIsVisiblePopup((prev) => !prev)}>{value.name}</span>
       </div>
       {isVisiblePopup && (
         <div className="sort__popup">
           <ul>
-            {listMenu.map((item, index) => (
+            {listMenu.map((obj, index) => (
               <li
-                className={index === activeMenu ? 'active' : ''}
-                onClick={() => handlerCloseAndSelect(index)}
+                className={obj.sort === value.sort ? 'active' : ''}
+                onClick={() => handlerCloseAndSelect(obj)}
                 key={index}>
-                {item}
+                {obj.name}
               </li>
             ))}
           </ul>
