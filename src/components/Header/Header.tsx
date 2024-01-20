@@ -2,9 +2,22 @@ import { Link } from 'react-router-dom';
 import logo from '../../assets/img/pizza-logo.svg';
 import Search from '../Search/Search';
 
-const Header = ({ searchValue, setSearchValue}) => {
+import { useSelector, useDispatch } from 'react-redux';
+import { decrement, increment } from '../../redux/slices/filterSlice';
+
+const Header = () => {
+  const count = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch();
+
   return (
     <div className="header">
+      <button aria-label="Increment value" onClick={() => dispatch(increment())}>
+        Increment
+      </button>
+      <span>{count}</span>
+      <button aria-label="Decrement value" onClick={() => dispatch(decrement())}>
+        Decrement
+      </button>
       <div className="container">
         <Link to="/">
           <div className="header__logo">
@@ -15,7 +28,7 @@ const Header = ({ searchValue, setSearchValue}) => {
             </div>
           </div>
         </Link>
-        <Search searchValue={searchValue} setSearchValue={setSearchValue} />
+        <Search />
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
             <span>520 ₽</span>

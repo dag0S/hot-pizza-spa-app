@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import Categories from '../../components/Categories/Categories';
 import Sort from '../../components/Sort/Sort';
@@ -6,6 +6,7 @@ import PizzaBlock from '../../components/PizzaBlock/PizzaBlock';
 import Skeleton from '../../components/PizzaBlock/Skeleton';
 import { useOutletContext } from 'react-router-dom';
 import Pagination from '../../components/Pagination/Pagination';
+import { SearchContext } from '../../App';
 
 const Home = () => {
   const [items, setItems] = useState([]);
@@ -18,8 +19,7 @@ const Home = () => {
   });
 
   const [currentPage, setCurrentPage] = useState(1);
-
-  const [searchValue, setSearchValue] = useOutletContext();
+  const { searchValue } = useContext(SearchContext);
 
   useEffect(() => {
     setIsLoading(true);
@@ -42,7 +42,7 @@ const Home = () => {
 
   const pizzas = items.map((pizza) => <PizzaBlock key={pizza.id} {...pizza} />);
 
-  const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
+  const skeletons = [...new Array(4)].map((_, index) => <Skeleton key={index} />);
 
   return (
     <div className="container">

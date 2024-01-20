@@ -7,6 +7,8 @@ import NotFound from './pages/NotFound/NotFound.tsx';
 import Home from './pages/Home/Home.tsx';
 import Cart from './pages/Cart/Cart.tsx';
 
+import { store } from './redux/store';
+
 const router = createBrowserRouter([
   {
     path: '/',
