@@ -1,9 +1,31 @@
-import { useContext } from 'react';
+import { useCallback, useContext, useRef, useState } from 'react';
+import debounce from 'lodash.debounce';
+
 import styles from './Search.module.scss';
 import { SearchContext } from '../../App';
 
 const Search = () => {
-  const { searchValue, setSearchValue } = useContext(SearchContext);
+  const [value, setValue] = useState('');
+  const { setSearchValue } = useContext(SearchContext);
+  const inputRef = useRef();
+
+  const updateSearchValue = useCallback(
+    debounce((str) => {
+      setSearchValue(str);
+    }, 500),
+    [],
+  );
+
+  const handlerOnChange = (e) => {
+    setValue(e.target.value);
+    updateSearchValue(e.target.value);
+  };
+
+  const onClickClear = () => {
+    setValue('');
+    setSearchValue('');
+    inputRef.current.focus();
+  };
 
   return (
     <div className={styles['wrapper']}>
@@ -16,16 +38,17 @@ const Search = () => {
         </svg>
         <input
           className={styles['search']}
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
+          ref={inputRef}
+          value={value}
+          onChange={handlerOnChange}
           type="text"
           placeholder="Поиск пиццы"
         />
       </label>
-      {searchValue && (
+      {value && (
         <svg
           className={styles['close']}
-          onClick={() => setSearchValue('')}
+          onClick={onClickClear}
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg">
           <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" />
