@@ -33,21 +33,28 @@ const Home = () => {
     dispatch(setCurrentPage(num));
   };
 
-  const fetchPizzas = () => {
+  const fetchPizzas = async () => {
     setIsLoading(true);
     const order = sortType.includes('-') ? 'asc' : 'desc';
     const sortBy = sortType.replace('-', '');
     const category = categoryId > 0 ? `category=${categoryId}` : '';
     const search = searchValue ? `&search=${searchValue}` : '';
 
-    axios
-      .get(
-        `https://65a56ba652f07a8b4a3f13b0.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
-      )
-      .then((res) => {
-        setItems(res.data);
-        setIsLoading(false);
-      });
+    // await axios
+    //   .get(
+    //     `https://65a56ba652f07a8b4a3f13b0.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
+    //   )
+    //   .then((res) => {
+    //     setItems(res.data);
+    //     setIsLoading(false);
+    //     console.log('6666');
+    //   });
+
+    const res = await axios.get(
+      `https://65a56ba652f07a8b4a3f13b0.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`,
+    );
+    setItems(res.data);
+    setIsLoading(false);
   };
 
   // Если изменили параметры и был первый рендер
