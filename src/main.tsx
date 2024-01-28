@@ -6,8 +6,7 @@ import App from './App.tsx';
 import NotFound from './pages/NotFound/NotFound.tsx';
 import Home from './pages/Home/Home.tsx';
 import Cart from './pages/Cart/Cart.tsx';
-
-import { store } from './redux/store';
+import FullPizza from './pages/FullPizza/FullPizza.tsx';
 
 const router = createBrowserRouter([
   {
@@ -22,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: '/cart',
         element: <Cart />,
+      },
+      {
+        path: '/pizza/:id',
+        element: <FullPizza />,
       },
       {
         path: '/*',

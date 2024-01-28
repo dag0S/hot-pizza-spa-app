@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import qs from 'qs';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { fetchPizzas } from '../../redux/slices/pizzaSlice';
 import { setCategoryId, setCurrentPage, setFilters } from '../../redux/slices/filterSlice';
@@ -89,7 +89,11 @@ const Home = () => {
     isSearch.current = false;
   }, [categoryId, sortType, searchValue, currentPage]);
 
-  const pizzas = items.map((pizza) => <PizzaBlock key={pizza.id} {...pizza} />);
+  const pizzas = items.map((pizza) => (
+    <Link to={`/pizza/${pizza.id}`}>
+      <PizzaBlock key={pizza.id} {...pizza} />
+    </Link>
+  ));
   const skeletons = [...new Array(4)].map((_, index) => <Skeleton key={index} />);
 
   return (

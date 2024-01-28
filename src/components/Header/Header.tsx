@@ -9,9 +9,6 @@ const Header = () => {
   const totalCount = items.reduce((sum, item) => sum + item.count, 0);
 
   const location = useLocation();
-
-  console.log(location.pathname, window.location.pathname);
-  // 17: 00
   return (
     <div className="header">
       <div className="container">
