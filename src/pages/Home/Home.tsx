@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from 'react';
+import { FC, useContext, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import qs from 'qs';
 import { Link, useNavigate } from 'react-router-dom';
@@ -12,7 +12,7 @@ import Skeleton from '../../components/PizzaBlock/Skeleton';
 import Pagination from '../../components/Pagination/Pagination';
 import { SearchContext } from '../../App';
 
-const Home = () => {
+const Home: FC = () => {
   const dispatch = useDispatch();
   const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
   const { items, status } = useSelector((state) => state.pizza);
@@ -24,11 +24,11 @@ const Home = () => {
 
   const { searchValue } = useContext(SearchContext);
 
-  const onClickCategory = (id) => {
+  const onClickCategory = (id: number) => {
     dispatch(setCategoryId(id));
   };
 
-  const handlerChangePage = (num) => {
+  const handlerChangePage = (num: number) => {
     dispatch(setCurrentPage(num));
   };
 
@@ -89,7 +89,7 @@ const Home = () => {
     isSearch.current = false;
   }, [categoryId, sortType, searchValue, currentPage]);
 
-  const pizzas = items.map((pizza) => (
+  const pizzas = items.map((pizza: any) => (
     <Link to={`/pizza/${pizza.id}`} key={pizza.id}>
       <PizzaBlock {...pizza} />
     </Link>
