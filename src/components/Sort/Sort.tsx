@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, MouseEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { setSort } from '../../redux/slices/filterSlice';
@@ -6,6 +6,10 @@ import { setSort } from '../../redux/slices/filterSlice';
 type SortItem = {
   name: string;
   sort: string;
+};
+
+type PopupClick = MouseEvent & {
+  composedPath: () => Node[];
 };
 
 export const listMenu: SortItem[] = [
@@ -22,7 +26,7 @@ const Sort = () => {
   const sort = useSelector((state) => state.filter.sort);
   const sortRef = useRef<HTMLDivElement>(null);
 
-  const [isVisiblePopup, setIsVisiblePopup] = useState(false);
+  const [isVisiblePopup, setIsVisiblePopup] = useState<boolean>(false);
 
   const handlerCloseAndSelect = (obj: SortItem) => {
     setIsVisiblePopup((prev) => !prev);
@@ -30,8 +34,9 @@ const Sort = () => {
   };
 
   useEffect(() => {
-    const handleClickOutside = (event: any) => {
-      if (!event.composedPath().includes(sortRef.current)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      const _event = event as PopupClick;
+      if (sortRef.current && !_event.composedPath().includes(sortRef.current)) {
         setIsVisiblePopup(false);
       }
     };

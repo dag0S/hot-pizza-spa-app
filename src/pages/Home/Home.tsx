@@ -19,8 +19,8 @@ const Home: FC = () => {
   const sortType = sort.sort;
   const navigate = useNavigate();
 
-  const isSearch = useRef(false);
-  const isMounted = useRef(false);
+  const isSearch = useRef<boolean>(false);
+  const isMounted = useRef<boolean>(false);
 
   const { searchValue } = useContext(SearchContext);
 
