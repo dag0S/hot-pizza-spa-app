@@ -8,7 +8,7 @@ import { store } from './redux/store';
 export const SearchContext = createContext('');
 
 function App() {
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState<string>('');
 
   return (
     <div className="wrapper">

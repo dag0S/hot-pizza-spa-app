@@ -1,8 +1,9 @@
+import { FC } from 'react';
 import ContentLoader from 'react-content-loader';
 
-const MyLoader = (props) => (
+const MyLoader: FC = (props) => (
   <ContentLoader
-    className='pizza-block'
+    className="pizza-block"
     speed={2}
     width={280}
     height={500}

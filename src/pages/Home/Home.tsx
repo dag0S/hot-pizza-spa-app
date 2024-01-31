@@ -1,21 +1,27 @@
 import { FC, useContext, useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import qs from 'qs';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { fetchPizzas } from '../../redux/slices/pizzaSlice';
-import { setCategoryId, setCurrentPage, setFilters } from '../../redux/slices/filterSlice';
+import {
+  FilterSliceState,
+  setCategoryId,
+  setCurrentPage,
+  setFilters,
+} from '../../redux/slices/filterSlice';
 import Categories from '../../components/Categories/Categories';
 import Sort, { listMenu } from '../../components/Sort/Sort';
 import PizzaBlock from '../../components/PizzaBlock/PizzaBlock';
 import Skeleton from '../../components/PizzaBlock/Skeleton';
 import Pagination from '../../components/Pagination/Pagination';
 import { SearchContext } from '../../App';
+import { RootState, useAppDispatch } from '../../redux/store';
 
 const Home: FC = () => {
-  const dispatch = useDispatch();
-  const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
-  const { items, status } = useSelector((state) => state.pizza);
+  const dispatch = useAppDispatch();
+  const { categoryId, sort, currentPage } = useSelector((state: RootState) => state.filter);
+  const { items, status } = useSelector((state: RootState) => state.pizza);
   const sortType = sort.sort;
   const navigate = useNavigate();
 
@@ -44,7 +50,7 @@ const Home: FC = () => {
         sortBy,
         category,
         search,
-        currentPage,
+        currentPage: currentPage.toString(),
       }),
     );
   };
@@ -71,7 +77,7 @@ const Home: FC = () => {
         setFilters({
           ...params,
           sort,
-        }),
+        } as FilterSliceState),
       );
 
       isSearch.current = true;
@@ -89,11 +95,7 @@ const Home: FC = () => {
     isSearch.current = false;
   }, [categoryId, sortType, searchValue, currentPage]);
 
-  const pizzas = items.map((pizza: any) => (
-    <Link to={`/pizza/${pizza.id}`} key={pizza.id}>
-      <PizzaBlock {...pizza} />
-    </Link>
-  ));
+  const pizzas = items.map((pizza: any) => <PizzaBlock key={pizza.id} {...pizza} />);
   const skeletons = [...new Array(4)].map((_, index) => <Skeleton key={index} />);
 
   return (

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, MouseEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { setSort } from '../../redux/slices/filterSlice';
+import { RootState } from '../../redux/store';
 
 type SortItem = {
   name: string;
@@ -23,7 +24,7 @@ export const listMenu: SortItem[] = [
 
 const Sort = () => {
   const dispatch = useDispatch();
-  const sort = useSelector((state) => state.filter.sort);
+  const sort = useSelector((state: RootState) => state.filter.sort);
   const sortRef = useRef<HTMLDivElement>(null);
 
   const [isVisiblePopup, setIsVisiblePopup] = useState<boolean>(false);
