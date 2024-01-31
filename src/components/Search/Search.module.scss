@@ -9,6 +9,10 @@
   &:focus {
     border: 1px solid rgba(0, 0, 0, 0.2);
   }
+
+  @media (max-width: 920px) {
+    width: 100%;
+  }
 }
 
 .icon {
@@ -25,6 +29,11 @@
 
 .wrapper {
   position: relative;
+  
+  @media (max-width: 920px) {
+    width: 100%;
+    order: 3;
+  }
 }
 
 .close {

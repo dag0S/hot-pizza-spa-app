@@ -3,6 +3,20 @@
 
 @import './components/all';
 
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: $background;
+}
+::-webkit-scrollbar-thumb {
+  background: $orange;
+  border-radius: 10px;
+}
+
 body {
   background-color: $background;
 }
@@ -28,7 +42,7 @@ body {
 
   &__error-info {
     margin: 100px auto;
-    width: 500px;
+    max-width: 500px;
     text-align: center;
     h2 {
       font-size: 28px;
@@ -71,6 +85,7 @@ body {
     @media (max-width: 983px) {
       .categories {
         overflow-x: scroll;
+        padding-bottom: 5px;
       }
     }
   }
@@ -86,6 +101,10 @@ body {
     .content__title {
       margin: 0;
     }
+  }
+
+  img {
+    max-width: 100%;
   }
 }
 
@@ -318,7 +337,7 @@ body {
 
   &--empty {
     margin: 60px auto;
-    width: 620px;
+    max-width: 620px;
     text-align: center;
 
     h2 {
@@ -326,6 +345,7 @@ body {
       font-size: 36px;
       margin-bottom: 10px;
       margin-bottom: 20px;
+      line-height: 1.1;
     }
 
     p {
