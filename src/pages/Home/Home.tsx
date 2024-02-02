@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect, useRef } from 'react';
+import { FC, useCallback, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
@@ -15,12 +15,13 @@ import Sort, { listMenu } from '../../components/Sort/Sort';
 import PizzaBlock from '../../components/PizzaBlock/PizzaBlock';
 import Skeleton from '../../components/PizzaBlock/Skeleton';
 import Pagination from '../../components/Pagination/Pagination';
-import { SearchContext } from '../../App';
 import { RootState, useAppDispatch } from '../../redux/store';
 
 const Home: FC = () => {
   const dispatch = useAppDispatch();
-  const { categoryId, sort, currentPage } = useSelector((state: RootState) => state.filter);
+  const { categoryId, sort, currentPage, searchValue } = useSelector(
+    (state: RootState) => state.filter,
+  );
   const { items, status } = useSelector((state: RootState) => state.pizza);
   const sortType = sort.sort;
   const navigate = useNavigate();
@@ -28,11 +29,9 @@ const Home: FC = () => {
   const isSearch = useRef<boolean>(false);
   const isMounted = useRef<boolean>(false);
 
-  const { searchValue } = useContext(SearchContext);
-
-  const onClickCategory = (id: number) => {
+  const onClickCategory = useCallback((id: number) => {
     dispatch(setCategoryId(id));
-  };
+  }, []);
 
   const handlerChangePage = (num: number) => {
     dispatch(setCurrentPage(num));
@@ -102,7 +101,7 @@ const Home: FC = () => {
     <div className="container">
       <div className="content__top">
         <Categories value={categoryId} onClickCategory={onClickCategory} />
-        <Sort />
+        <Sort value={sort} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       {status === 'error' ? (

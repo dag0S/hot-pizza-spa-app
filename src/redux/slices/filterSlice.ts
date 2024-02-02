@@ -8,12 +8,14 @@ interface Sort {
 export interface FilterSliceState {
   categoryId: number;
   currentPage: number;
+  searchValue: string;
   sort: Sort;
 }
 
 const initialState: FilterSliceState = {
   categoryId: 0,
   currentPage: 1,
+  searchValue: '',
   sort: {
     name: 'популярности ↑',
     sort: 'rating',
@@ -38,9 +40,12 @@ const filterSlice = createSlice({
       state.sort = action.payload.sort;
       state.categoryId = +action.payload.categoryId;
     },
+    setSearchValue(state, action: PayloadAction<string>) {
+      state.searchValue = action.payload
+    }
   },
 });
 
-export const { setCategoryId, setSort, setCurrentPage, setFilters } = filterSlice.actions;
+export const { setCategoryId, setSort, setCurrentPage, setFilters, setSearchValue } = filterSlice.actions;
 
 export default filterSlice.reducer;

@@ -1,11 +1,11 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 
 type CategoriesProps = {
   value: number;
   onClickCategory: (index: number) => void;
 };
 
-const Categories: FC<CategoriesProps> = ({ value, onClickCategory }) => {
+const Categories: FC<CategoriesProps> = memo(({ value, onClickCategory }) => {
   const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
   return (
@@ -22,6 +22,6 @@ const Categories: FC<CategoriesProps> = ({ value, onClickCategory }) => {
       </ul>
     </div>
   );
-};
+});
 
 export default Categories;
