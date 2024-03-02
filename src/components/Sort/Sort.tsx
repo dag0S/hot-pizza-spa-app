@@ -1,11 +1,7 @@
 import { useEffect, useRef, useState, MouseEvent, FC, memo } from 'react';
 import { useDispatch } from 'react-redux';
-import { setSort } from '../../redux/slices/filterSlice';
+import { setSort, SortItem } from '../../redux/slices/filterSlice';
 
-type SortItem = {
-  name: string;
-  sort: string;
-};
 
 type PopupClick = MouseEvent & {
   composedPath: () => Node[];
@@ -36,7 +32,7 @@ const Sort: FC<SortProps> = memo(({ value }) => {
   };
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (event: any) => {
       const _event = event as PopupClick;
       if (sortRef.current && !_event.composedPath().includes(sortRef.current)) {
         setIsVisiblePopup(false);
